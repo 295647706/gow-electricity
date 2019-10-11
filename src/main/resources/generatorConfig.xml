@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+    <classPathEntry location="D:\project\mgow\maven\m2\mysql\mysql-connector-java\8.0.11\mysql-connector-java-8.0.11.jar"/>
+    <context id="context1" targetRuntime="MyBatis3" defaultModelType="flat">
+        <!--<plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>-->
+        <commentGenerator>
+            <property name="suppressDate" value="false"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!-- com.mysql.cj.jdbc.Driver -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/gow?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false"
+                        userId="root" password="root"/>
+
+        <javaModelGenerator targetPackage="com.example.gowelectricity.model.auto"
+                            targetProject="../gow-electricity/src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="mapper.auto"
+                         targetProject="../gow-electricity/src/main/resources">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <javaClientGenerator targetPackage="com.example.gowelectricity.mapper.auto"
+                             targetProject="../gow-electricity/src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+            <!--<property name="rootInterface" value="com.sq580.ms.common.dao.BaseDaoMybatis"/>-->
+        </javaClientGenerator>
+
+        <!---
+            1、如果表id字段为主键自增曾配置：<generatedKey column="id" sqlStatement="JDBC"/>
+            2、如果当表列出现大对象(如列blob)时请使用:<columnOverride column="blob" jdbcType="VARCHAR"/>
+        -->
+
+        <!--<table tableName="gow_category" domainObjectName="Category">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_customer" domainObjectName="Customer">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_customer_address" domainObjectName="CustomerAddress">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_goods" domainObjectName="Goods">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_goods_collection" domainObjectName="GoodsCollection">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_order" domainObjectName="Order">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_order_goods" domainObjectName="OrderGoods">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_shopping_cart" domainObjectName="ShoppingCart">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_goods_image" domainObjectName="GoodsImage">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_goods_recommended" domainObjectName="GoodsRecommended">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_message" domainObjectName="Message">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_contact_us" domainObjectName="ContactUS">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_payment" domainObjectName="Payment">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_goods_detail_image" domainObjectName="GoodsDetailImage">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_paytype" domainObjectName="Paytype">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <table tableName="gow_image_url" domainObjectName="ImageUrl">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>
+
+        <!--<table tableName="gow_information" domainObjectName="Information">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_information_operation" domainObjectName="InformationOperation">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_shuffling_figure" domainObjectName="ShufflingFigure">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+        <!--<table tableName="gow_shuffling_figure_number" domainObjectName="ShufflingFigureNumber">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
+    </context>
+</generatorConfiguration>
