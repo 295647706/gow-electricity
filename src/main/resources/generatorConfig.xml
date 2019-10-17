@@ -12,7 +12,7 @@
 
         <!-- com.mysql.cj.jdbc.Driver -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://127.0.0.1:3306/gow?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/gow_electricity?useUnicode=true&amp;characterEncoding=utf-8&amp;serverTimezone=UTC&amp;useSSL=false"
                         userId="root" password="root"/>
 
         <javaModelGenerator targetPackage="com.example.gowelectricity.model.auto"
@@ -37,83 +37,11 @@
             2、如果当表列出现大对象(如列blob)时请使用:<columnOverride column="blob" jdbcType="VARCHAR"/>
         -->
 
-        <!--<table tableName="gow_category" domainObjectName="Category">
+        <!--<table tableName="gowele_goods" domainObjectName="Goods">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
 
-        <!--<table tableName="gow_customer" domainObjectName="Customer">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_customer_address" domainObjectName="CustomerAddress">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_goods" domainObjectName="Goods">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_goods_collection" domainObjectName="GoodsCollection">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_order" domainObjectName="Order">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_order_goods" domainObjectName="OrderGoods">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_shopping_cart" domainObjectName="ShoppingCart">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_goods_image" domainObjectName="GoodsImage">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_goods_recommended" domainObjectName="GoodsRecommended">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_message" domainObjectName="Message">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_contact_us" domainObjectName="ContactUS">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_payment" domainObjectName="Payment">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_goods_detail_image" domainObjectName="GoodsDetailImage">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_paytype" domainObjectName="Paytype">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_image_url" domainObjectName="ImageUrl">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_information" domainObjectName="Information">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_information_operation" domainObjectName="InformationOperation">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_shuffling_figure" domainObjectName="ShufflingFigure">
-            <generatedKey column="id" sqlStatement="JDBC"/>
-        </table>-->
-
-        <!--<table tableName="gow_shuffling_figure_number" domainObjectName="ShufflingFigureNumber">
+        <!--<table tableName="gowele_order" domainObjectName="Order">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
 

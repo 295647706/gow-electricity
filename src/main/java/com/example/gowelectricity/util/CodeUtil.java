@@ -29,6 +29,14 @@ public class CodeUtil {
         return "G"+dateCode()+randomCode(4);
     }
 
+
+    public static String getCode(String prefix){
+        if(null == prefix){
+            prefix = "";
+        }
+        return prefix+dateCode()+randomCode(4);
+    }
+
     /**
      * lzn 2019/3/12 12:08
      * 日期拼接
