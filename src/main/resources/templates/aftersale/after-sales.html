@@ -1,0 +1,141 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+	<title>售后申请</title>
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+	<!--<link rel="stylesheet" type="text/css" href="/Public/css/mobile/refund.css">-->
+	<link rel="stylesheet" type="text/css" href="../../desk/css/refund.css">
+	<script src="https://rugucdn.oss-cn-qingdao.aliyuncs.com/libs/layer/layer.js"></script>
+	<style>
+		.main dl.dl dt {width: 90px!important;}
+		input{    width: 96%;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			padding: 0px 2%;
+			height: 34px;
+			line-height: 34px;
+			font-size: 14px;}
+		h1{font-size:18px;}
+	</style>
+</head>
+
+<body>
+<div class="audit-1">
+	<div style="padding:10px">
+		<h1>服务说明：</h1>
+		<p>·商品如有质量问题7日内无理由退换。</p>
+		<p>·个人原因的退换服务，邮费自理。</p>
+		<p>·支付成功商品即自动发货，活动商品售出时，已针对购买行为声明确认，不支持无理由退换!</p>
+
+	</div>
+
+
+	<div class="main-bg">
+		<div class="main">
+			<div class="query">
+
+				<div class="query-l fl">
+					<input id="name" name="name" type="text" maxlength="10" placeholder="请填写下单姓名" value=""/>
+				</div>
+
+				<div class="query-l fl" style="margin-top:15px;">
+					<input id="mobile" name="mobile" type="tel" maxlength="11" placeholder="请填写下单手机号" value=""/>
+				</div>
+
+				<div class="query-r fr"><span id="sorder" style="background:#cf2a4f">查询</span></div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+<div class="list-bg" style="display:none;" id="pdiv">
+
+</div>
+
+<div style="height:80px;"></div>
+
+
+
+
+<script>
+	$('#sorder').click(function(){
+		var name=$('#name').val();
+		var mobile=$('#mobile').val();
+		if(name==''){
+			layer.open({content: '下单姓名不能为空',skin: 'msg',time: 3 });
+			return false;
+		}
+		if(mobile==''){
+			layer.open({content: '下单手机号不能为空',skin: 'msg',time: 3 });
+			return false;
+		}
+
+		var jz = layer.open({
+			type: 2
+			,content: '查询中',
+			shadeClose: false
+		});
+
+		$.ajax({
+			type : "POST",  //提交方式
+			url : "/index.php/home/aftersale/refunds",
+			data : {name:name,mobile:mobile},
+			dataType : "json",
+			success : function(result) {
+				if (result.status=="0"){
+					layer.close(jz);
+					$("#pdiv").html('');
+					var orders = result.order;
+					var res_html = '';
+					for(var i=0;i<orders.length;i++){
+						res_html = '<div class="main-bg"><div class="main">';
+						res_html +='<dl class="dl"><dt>订单编号：</dt><dd>'+orders[i].oid+'</dd></dl>';
+						res_html +='<dl class="dl"><dt>订购产品：</dt><dd>'+orders[i].product_name+'</dd></dl>';
+						var pap = orders[i].pattern;
+						if(orders[i].sex !=null){pap += "-"+orders[i].sex;}
+						if(orders[i].attr !=null){pap += "-"+orders[i].attr;}
+						res_html += '<dl class="dl"><dt>订购款式：</dt><dd>'+pap+'</dd></dl>';
+						res_html += '<dl class="dl"><dt>订购数量：</dt><dd>'+orders[i].number+'</dd></dl>';
+						res_html += '<dl class="dl"><dt>订单金额：</dt><dd>'+orders[i].total_price+'</dd></dl>';
+						if(orders[i].pay_status == 2){
+							res_html += '<dl class="dl"><dt>订单状态：</dt><dd><span style="height:18px;line-height:18px;border-radius:.25em;background-color:#5cb85c;">已支付</span></dd></dl>';
+						}else{
+							res_html += '<dl class="dl"><dt>订单状态：</dt><dd><span style="height:18px;line-height:18px;border-radius:.25em;background-color:#777;">未支付</span></dd></dl>';
+						}
+						res_html +='<dl class="dl"><dt>下单时间：</dt><dd>'+orders[i].create_time+'</dd></dl>';
+						if(orders[i].refund_status == 2){
+							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>退款处理中</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">售后将会在3个工作日内处理，请耐心等待。</dd></dl></div>';
+						}else if(orders[i].refund_status == 3){
+							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>已退款</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">'+orders[i].reason+'</dd></dl></div>';
+						}else if(orders[i].refund_status == 4){
+							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>不可退款</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">'+orders[i].reason+'</dd></dl></div>';
+						}else if(orders[i].refund_status == 5){
+							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>客户返货中,待退款。</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">'+orders[i].reason+'</dd></dl></div>';
+						}else{
+							if(orders[i].pay_status == 2){
+								res_html +='<div align="center"> <a id="pay-btn" class="pay-btn" href="/aftersale/ro.html?oid='+orders[i].oid+'">申请售后</a> </div>';
+							}
+						}
+
+						$("#pdiv").append(res_html);
+					}
+					$("#pdiv").show();
+				}else{
+					layer.close(jz);
+					$("#pdiv").hide();
+					layer.open({content: result.msg,skin: 'msg',time: 3 });
+				}
+			},error:function(){
+				layer.close(jz);
+				layer.open({content: '您的网络不稳定，请关闭页面后重试',skin: 'msg',time: 3 });
+			}
+		});
+	});
+</script>
+</body>
+</html>
