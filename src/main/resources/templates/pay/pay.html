@@ -1,0 +1,29 @@
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0" name="viewport">
+	<title>pay</title>
+	<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="https://rugucdn.oss-cn-qingdao.aliyuncs.com/libs/layer/layer.js"></script>
+</head>
+
+<body>
+	<div>
+		<form action="https://bufpay.com/api/pay/95134" method="post">
+			<input name="name" id="name" value="商品1">
+			<input name="pay_type" id="pay_type" value="wechat">
+			<input name="price" id="price" value="0.01">
+			<input name="order_id" id="order_id" value="201908261310111234">
+			<input name="order_uid" id="order_uid" value="1001">
+			<input name="notify_url" id="notify_url" value="http://gow.hdongx.comnull201908261310111234">
+			<input name="return_url" id="return_url" value="http://gow.hdongx.com/orderPage/order2-page">
+			<input name="sign" id="sign" value="432dd92289f28dd608337c3414965d76">
+			<input name="expire" id="expire" value="86400000">
+			<input type="submit">
+		</form>
+	</div>
+</body>
+</html>

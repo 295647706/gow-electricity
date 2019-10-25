@@ -23,4 +23,11 @@ public class AfterSalesController {
         ModelAndView view = new ModelAndView("aftersale/after-sales");
         return view;
     }
+
+    @ApiOperation(value = "支付页面")
+    @GetMapping("/pay")
+    public ModelAndView pay(){
+        ModelAndView view = new ModelAndView("pay/pay");
+        return view;
+    }
 }
