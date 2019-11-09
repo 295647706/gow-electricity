@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gowelectricity.mapper.ext.OrderExtMapper">
+  <resultMap id="BaseResultMap" type="com.example.gowelectricity.model.auto.Order">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+    <result column="order_price" jdbcType="DECIMAL" property="orderPrice" />
+    <result column="pay_price" jdbcType="DECIMAL" property="payPrice" />
+    <result column="order_status" jdbcType="CHAR" property="orderStatus" />
+    <result column="pay_time" jdbcType="TIMESTAMP" property="payTime" />
+    <result column="send_express_time" jdbcType="TIMESTAMP" property="sendExpressTime" />
+    <result column="express_name" jdbcType="VARCHAR" property="expressName" />
+    <result column="express_code" jdbcType="VARCHAR" property="expressCode" />
+    <result column="shipping_province" jdbcType="VARCHAR" property="shippingProvince" />
+    <result column="shipping_city" jdbcType="VARCHAR" property="shippingCity" />
+    <result column="shipping_county" jdbcType="VARCHAR" property="shippingCounty" />
+    <result column="shipping_street" jdbcType="VARCHAR" property="shippingStreet" />
+    <result column="shipping_address" jdbcType="VARCHAR" property="shippingAddress" />
+    <result column="shipping_person" jdbcType="VARCHAR" property="shippingPerson" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="goods_id" jdbcType="BIGINT" property="goodsId" />
+    <result column="goods_name" jdbcType="VARCHAR" property="goodsName" />
+    <result column="goods_number" jdbcType="INTEGER" property="goodsNumber" />
+    <result column="aoid" jdbcType="VARCHAR" property="aoid" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+
+
+  <update id="updatePayInfoByCode">
+    update gowele_order set pay_price = #{payPrice},pay_time = #{payTime},order_status = #{orderStatus} where order_code = #{orderCode}
+  </update>
+
+
+  <update id="updatePayInfoByAoid">
+    update gowele_order set pay_price = #{payPrice},pay_time = #{payTime},order_status = #{orderStatus} where aoid = #{aoid}
+  </update>
+
+
+  <select id="selectOrderByMobileOrPersonName" resultMap="BaseResultMap">
+    select * from gowele_order where 1=1
+    and mobile = #{mobile}
+    <if test="personName != null and personName != '' ">
+      and shipping_person = #{personName}
+    </if>
+    order by id desc
+  </select>
+
+</mapper>

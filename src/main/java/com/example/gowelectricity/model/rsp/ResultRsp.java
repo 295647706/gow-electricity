@@ -16,4 +16,12 @@ public class ResultRsp {
     private Object data;
 
     private String msg;
+
+    public ResultRsp(){}
+
+    public ResultRsp(int status,Object data,String msg){
+        this.status = status;
+        this.data = data;
+        this.msg = msg;
+    }
 }

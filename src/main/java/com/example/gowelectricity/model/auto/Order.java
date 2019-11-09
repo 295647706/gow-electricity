@@ -42,6 +42,10 @@ public class Order {
 
     private Integer goodsNumber;
 
+    private String aoid;
+
+    private Date createTime;
+
     public Long getId() {
         return id;
     }
@@ -192,5 +196,21 @@ public class Order {
 
     public void setGoodsNumber(Integer goodsNumber) {
         this.goodsNumber = goodsNumber;
+    }
+
+    public String getAoid() {
+        return aoid;
+    }
+
+    public void setAoid(String aoid) {
+        this.aoid = aoid == null ? null : aoid.trim();
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

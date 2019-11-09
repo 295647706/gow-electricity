@@ -83,31 +83,38 @@
 
 		$.ajax({
 			type : "POST",  //提交方式
-			url : "/index.php/home/aftersale/refunds",
-			data : {name:name,mobile:mobile},
+			url : "/aftersales/express-info",
+			data : {personName:name,mobile:mobile},
 			dataType : "json",
 			success : function(result) {
 				if (result.status=="0"){
 					layer.close(jz);
 					$("#pdiv").html('');
-					var orders = result.order;
+					var orders = result.data;
 					var res_html = '';
 					for(var i=0;i<orders.length;i++){
 						res_html = '<div class="main-bg"><div class="main">';
-						res_html +='<dl class="dl"><dt>订单编号：</dt><dd>'+orders[i].oid+'</dd></dl>';
-						res_html +='<dl class="dl"><dt>订购产品：</dt><dd>'+orders[i].product_name+'</dd></dl>';
+						res_html +='<dl class="dl"><dt>订单编号：</dt><dd>'+orders[i].orderCode+'</dd></dl>';
+						res_html +='<dl class="dl"><dt>订购产品：</dt><dd>'+orders[i].goodsName+'</dd></dl>';
 						var pap = orders[i].pattern;
 						if(orders[i].sex !=null){pap += "-"+orders[i].sex;}
 						if(orders[i].attr !=null){pap += "-"+orders[i].attr;}
-						res_html += '<dl class="dl"><dt>订购款式：</dt><dd>'+pap+'</dd></dl>';
-						res_html += '<dl class="dl"><dt>订购数量：</dt><dd>'+orders[i].number+'</dd></dl>';
-						res_html += '<dl class="dl"><dt>订单金额：</dt><dd>'+orders[i].total_price+'</dd></dl>';
-						if(orders[i].pay_status == 2){
-							res_html += '<dl class="dl"><dt>订单状态：</dt><dd><span style="height:18px;line-height:18px;border-radius:.25em;background-color:#5cb85c;">已支付</span></dd></dl>';
-						}else{
+						res_html += '<dl class="dl"><dt>订购数量：</dt><dd>'+orders[i].goodsNumber+'</dd></dl>';
+						res_html += '<dl class="dl"><dt>订单金额：</dt><dd>'+orders[i].orderPrice+'</dd></dl>';
+						if(orders[i].orderStatus == "1" || orders[i].orderStatus == "2" || orders[i].orderStatus == "3"){
+							var statusValue = "";
+							if(orders[i].orderStatus == "1"){
+								statusValue = "待发货";
+							}else if(orders[i].orderStatus == "2"){
+								statusValue = "待收货";
+							}else if(orders[i].orderStatus == "3"){
+								statusValue = "交易完成";
+							}
+							res_html += '<dl class="dl"><dt>订单状态：</dt><dd><span style="height:18px;line-height:18px;border-radius:.25em;background-color:#5cb85c;">'+statusValue+'</span></dd></dl>';
+						}else  if(orders[i].orderStatus == "0"){
 							res_html += '<dl class="dl"><dt>订单状态：</dt><dd><span style="height:18px;line-height:18px;border-radius:.25em;background-color:#777;">未支付</span></dd></dl>';
 						}
-						res_html +='<dl class="dl"><dt>下单时间：</dt><dd>'+orders[i].create_time+'</dd></dl>';
+						res_html +='<dl class="dl"><dt>下单时间：</dt><dd>'+orders[i].createTimeF+'</dd></dl>';
 						if(orders[i].refund_status == 2){
 							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>退款处理中</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">售后将会在3个工作日内处理，请耐心等待。</dd></dl></div>';
 						}else if(orders[i].refund_status == 3){
@@ -117,8 +124,8 @@
 						}else if(orders[i].refund_status == 5){
 							res_html +='<div><dl class="dl"><dt>处理状态：</dt><dd>客户返货中,待退款。</dd></dl><dl class="dl"><dt>客服回复：</dt><dd style="color:red;font-size:12pt;">'+orders[i].reason+'</dd></dl></div>';
 						}else{
-							if(orders[i].pay_status == 2){
-								res_html +='<div align="center"> <a id="pay-btn" class="pay-btn" href="/aftersale/ro.html?oid='+orders[i].oid+'">申请售后</a> </div>';
+							if(orders[i].orderStatus == "3"){
+								res_html +='<div align="center"> <a id="pay-btn" class="pay-btn" href="#'+orders[i].id+'">申请售后</a> </div>';
 							}
 						}
 

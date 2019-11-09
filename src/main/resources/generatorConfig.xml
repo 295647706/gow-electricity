@@ -45,5 +45,9 @@
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>-->
 
+        <!--<table tableName="gowele_order_pay_img" domainObjectName="OrderPayImg">
+            <generatedKey column="id" sqlStatement="JDBC"/>
+        </table>-->
+
     </context>
 </generatorConfiguration>

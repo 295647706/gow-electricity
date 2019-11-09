@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gowelectricity.mapper.ext.OrderPayImgExtMapper">
+  <resultMap id="BaseResultMap" type="com.example.gowelectricity.model.auto.OrderPayImg">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="aoid" jdbcType="VARCHAR" property="aoid" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="qr_img" jdbcType="VARCHAR" property="qrImg" />
+  </resultMap>
+
+
+  <select id="selectByAoid" resultMap="BaseResultMap">
+    select * from gowele_order_pay_img where aoid = #{aoid} limit 1
+  </select>
+
+</mapper>

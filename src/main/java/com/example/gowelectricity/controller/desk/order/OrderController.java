@@ -7,9 +7,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @ClassName OrderController
@@ -30,4 +28,36 @@ public class OrderController {
     public ResultRsp add(OrderAddReq req){
         return orderService.add(req);
     }
+
+
+    /**
+     * 根据aoid 查询支付状态
+     * */
+    @ApiOperation(value = "根据aoid 查询支付状态")
+    @GetMapping("/data/getPayStatus/{aoid}")
+    @ResponseBody
+    public ResultRsp getPayStatusByAoid(@PathVariable("aoid") String aoid){
+        return orderService.getPayStatusByAoid(aoid);
+    }
+
+    /**
+     * 支付回调
+     * */
+    @ApiOperation(value = "支付回调")
+    @PostMapping("/data/notify")
+    @ResponseBody
+    public int notify(String aoid,String order_id,String order_uid,double price,double pay_price,String sign){
+        return orderService.notifyPay(aoid,order_id,order_uid,price,pay_price,sign);
+    }
+
+    /**
+     * 支付跳转
+     * */
+    @ApiOperation(value = "支付跳转")
+    @PostMapping("/data/returnurl")
+    @ResponseBody
+    public int returnurl(String order_id){
+        return 0;
+    }
+
 }
