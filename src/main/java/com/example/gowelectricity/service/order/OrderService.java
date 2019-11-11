@@ -92,7 +92,7 @@ public class OrderService {
             payInfo.setOrder_uid(order.getId()+"");
             payInfo.setPrice(order.getOrderPrice());
             //调起支付信息
-            rsp.setData(this.payReturnJson(payInfo));
+            rsp.setData(this.payReturnJson(payInfo,order.getId()));
             return rsp;
         }
     }
@@ -144,12 +144,17 @@ public class OrderService {
      * 调起支付
      * @return json
      * */
-    public PayReturnInfo payReturnJson(PayInfo payInfo){
+    public PayReturnInfo payReturnJson(PayInfo payInfo,Long orderId){
         String returnValue = this.pay(payInfo,true);
         //处理
         JSONObject jsonObject = JSONObject.fromObject(returnValue);
         PayReturnInfo info = (PayReturnInfo)JSONObject.toBean(jsonObject,PayReturnInfo.class);
         if(info.getStatus().equals(PayReturnInfo.STATUS_OK)) {
+            //支付aoid
+            Order order = new Order();
+            order.setId(orderId);
+            order.setAoid(info.getAoid());
+            orderMapper.updateByPrimaryKeySelective(order);
             //保存支付码
             OrderPayImg orderPayImg = new OrderPayImg();
             orderPayImg.setAoid(info.getAoid());
