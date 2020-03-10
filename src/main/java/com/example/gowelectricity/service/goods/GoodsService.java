@@ -1,8 +1,10 @@
 package com.example.gowelectricity.service.goods;
 
+import com.example.common.exception.RestException;
 import com.example.gowelectricity.mapper.auto.GoodsMapper;
 import com.example.gowelectricity.mapper.ext.GoodsExtMapper;
 import com.example.gowelectricity.model.auto.Goods;
+import com.example.gowelectricity.model.req.goods.GoodsAddReq;
 import com.example.gowelectricity.model.rsp.goods.GoodsRsp;
 import com.example.gowelectricity.service.BaseService;
 import com.example.gowelectricity.util.BeanUtil;
@@ -40,5 +42,18 @@ public class GoodsService extends BaseService<GoodsExtMapper, Goods> {
             rsp.setDetailImageUrl(null);
         }
         return rsp;
+    }
+
+    /**
+     * 新增商品
+     * */
+    public Goods add(GoodsAddReq req){
+        Goods goods = new Goods();
+        BeanUtil.copyProperties(req,goods);
+        int count = goodsMapper.insertSelective(goods);
+        if(count == 0){
+            throw new RestException("新增商品失败");
+        }
+        return goods;
     }
 }

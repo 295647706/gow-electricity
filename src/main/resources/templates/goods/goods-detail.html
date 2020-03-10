@@ -293,7 +293,7 @@
 								<input id="subbtn" type="button" class="btn btn-primary" style="padding: 13px 85px;text-align:center;font-size:14px;" onclick="checkInput();"  value="填写好了  确认提交">
 								<div class="mains">
 									<dl class="search">
-										<dt><input type="tel" id="ssphone" maxlength="11" value="13542330241" placeholder="请填写手机号码查询订单信息"></dt>
+										<dt><input type="tel" id="ssphone" maxlength="11" value="" placeholder="请填写手机号码查询订单信息"></dt>
 										<dd onclick="sphone()">查 询</dd>
 									</dl>
 									<p><font size="5" color="#ff0000"><b>输入下单手机号查询订单</b></font></p>
@@ -506,9 +506,8 @@
 					payoid = result.oid;
 					$('#subbtn').removeAttr("disabled");
 					layer.open({content: result.msg,btn: '我知道了'});
-					window.location.href = "/pay/page/payPage?payId=1&aoid=2019082613101112340987";
 					if(result.data.status == "ok") {
-						window.location.href = "/pay/page/payPage?payId="+result.data.payId+"&aoid="+aoid;
+						window.location.href = "/pay/page/payPage?payId="+result.data.payId+"&aoid="+result.data.aoid;
 					}
 				}else{
 					layer.close(jz);

@@ -150,11 +150,13 @@ public class OrderService {
         JSONObject jsonObject = JSONObject.fromObject(returnValue);
         PayReturnInfo info = (PayReturnInfo)JSONObject.toBean(jsonObject,PayReturnInfo.class);
         if(info.getStatus().equals(PayReturnInfo.STATUS_OK)) {
-            //支付aoid
-            Order order = new Order();
-            order.setId(orderId);
-            order.setAoid(info.getAoid());
-            orderMapper.updateByPrimaryKeySelective(order);
+            if(null != orderId) {
+                //支付aoid
+                Order order = new Order();
+                order.setId(orderId);
+                order.setAoid(info.getAoid());
+                orderMapper.updateByPrimaryKeySelective(order);
+            }
             //保存支付码
             OrderPayImg orderPayImg = new OrderPayImg();
             orderPayImg.setAoid(info.getAoid());
@@ -170,7 +172,8 @@ public class OrderService {
      * 支付回调
      * */
     public int notifyPay(String aoid,String order_id,String order_uid,double price,double pay_price,String sign){
-        logger.error("支付回调"+ELLIPSIS);
+        logger.info("支付回调"+ELLIPSIS);
+        System.err.println("支付回调"+ELLIPSIS);
         Order order = new Order();
         order.setOrderCode(order_id);
         order.setPayPrice(new BigDecimal(pay_price));
@@ -178,7 +181,7 @@ public class OrderService {
         order.setOrderStatus("1");
         int count = orderExtMapper.updatePayInfoByCode(order);
         if(count > 0){
-            logger.error("支付回调成功"+ELLIPSIS);
+            logger.info("支付回调成功"+ELLIPSIS);
             return 200;
         }
         return 0;
@@ -203,7 +206,7 @@ public class OrderService {
             }else if (queryInfo.getStatus().equals(PayQueryInfo.NEW)){
                 return new ResultRsp(-2,queryInfo,"新订单");
             }else if (queryInfo.getStatus().equals(PayQueryInfo.SUCCESS)){
-                return new ResultRsp(-2,queryInfo,"订单已支付已经回调成功");
+                return new ResultRsp(0,queryInfo,"订单已支付已经回调成功");
             }else if (queryInfo.getStatus().equals(PayQueryInfo.FEE_ERROR)){
                 return new ResultRsp(-2,queryInfo,"账户余额不足扣除手续费失败，订单未回调");
             }else if (queryInfo.getStatus().equals(PayQueryInfo.EXPIRE)){

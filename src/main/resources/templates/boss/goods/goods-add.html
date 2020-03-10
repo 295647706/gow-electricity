@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>新增商品</title>
+    <style>
+
+        input[type=text], select {
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea{
+            width: 50%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        .button {
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+
+        .button1 {border-radius: 5px;}
+
+    </style>
+</head>
+<body style="width: 100%;">
+    <div>
+        <span style="width:300px;text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;商品名称：</span>
+        <input type="text" id="goodsName" name="goodsName" placeholder="商品名称">
+    </div>
+    <div>
+        <span style="width:300px;text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;价格：</span>
+        <input type="text" id="price" name="price" placeholder="价格">
+    </div>
+    <div>
+        <span style="width:300px;text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原价格：</span>
+        <input type="text" id="originalPrice" name="originalPrice" placeholder="原价格">
+    </div>
+    <div>
+        <span style="width:300px;text-align: center">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标签：</span>
+        <input type="text" id="label" name="label" placeholder="标签">
+    </div>
+    <div>
+        <span style="display:block;float:left;width:110px;text-align: right">图片URL：</span>
+        <textarea rows="6" id="imageUrl" name="imageUrl" placeholder="图片URL"></textarea>
+    </div>
+    <div>
+        <span style="display:block;float:left;width:110px;text-align: right">详情图片URL：</span>
+        <textarea rows="6" id="detailImageUrl" name="detailImageUrl" placeholder="详情图片URL"></textarea>
+    </div>
+    <div style="padding-left: 300px">
+        <button class="button button1" id="btnSubmit">提交</button>
+        <span style="color: #e40031" id="tip"></span>
+    </div>
+</body>
+<script src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+
+    //提交
+    $("#btnSubmit").on("click",function () {
+        var goodsName = $("#goodsName").val();
+        var price = $("#price").val();
+        var originalPrice = $("#originalPrice").val();
+        var label = $("#label").val();
+        var imageUrl = $("#imageUrl").val();
+        var detailImageUrl = $("#detailImageUrl").val();
+        $.ajax({
+            type: "POST",
+            url: "/boss/goods/add",
+            data: {"goodsName":goodsName,"price":price,"originalPrice":originalPrice,"label":label,"imageUrl":imageUrl,"detailImageUrl":detailImageUrl},
+            success: function (result) {
+                if(result.code==0){
+                    $("#tip").text("新增成功")
+                }else{
+                    $("#tip").text(result.msg)
+                }
+            }
+        });
+    })
+
+
+</script>
+</html>

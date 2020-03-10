@@ -131,15 +131,15 @@
 <script type="text/javascript">
 
     var count = 0;
-    var time = 1000;
+    var time = 2000;
     //定时
-    var intTime=self.setInterval("query()",time,600000);
+    var intTime=self.setInterval("query()",time);
 
     //操作
     function query() {
         var aoid = $("#aoid").val();
         if(aoid){
-            if(count > 50){
+            if(count > 500){
                 window.clearInterval(intTime)
                 return;
             }

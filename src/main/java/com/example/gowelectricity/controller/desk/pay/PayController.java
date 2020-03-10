@@ -73,7 +73,7 @@ public class PayController {
                 payInfo.setOrder_id(order.getOrderCode());
                 payInfo.setOrder_uid(order.getId()+"");
                 payInfo.setPrice(order.getOrderPrice());
-                PayReturnInfo returnInfo = orderService.payReturnJson(payInfo);
+                PayReturnInfo returnInfo = orderService.payReturnJson(payInfo,order.getId());
                 if(null != returnInfo){
                     view.addObject("aoid",returnInfo.getAoid());
                     view.addObject("price",returnInfo.getPrice());
